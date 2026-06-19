@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ReactQuill from 'react-quill';
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import AuthContext from '../context/AuthContext';
@@ -104,14 +103,12 @@ const EditPost = () => {
 
         <div>
           <label className="block text-sm font-medium mb-1">Content</label>
-          <div className="bg-white text-black rounded-md overflow-hidden border dark:border-slate-600">
-            <ReactQuill 
-              theme="snow" 
-              value={content} 
-              onChange={setContent} 
-              className="h-64 mb-12"
-            />
-          </div>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="w-full p-3 h-64 border rounded-md dark:bg-slate-700 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-primary resize-y"
+            placeholder="Write your blog content here..."
+          ></textarea>
         </div>
 
         <div className="pt-4 flex space-x-4">

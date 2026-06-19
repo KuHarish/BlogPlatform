@@ -8,6 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -51,19 +52,24 @@ const Navbar = () => {
                 <Link to="/create" className="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors">
                   Write a Blog
                 </Link>
-                <div className="relative group">
-                  <button className="flex items-center space-x-2">
+                <div className="relative">
+                  <button 
+                    onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                    className="flex items-center space-x-2"
+                  >
                     {user.avatar ? (
-                      <img src={user.avatar} alt="avatar" className="w-8 h-8 rounded-full" />
+                      <img src={user.avatar} alt="avatar" className="w-8 h-8 rounded-full object-cover" />
                     ) : (
                       <UserIcon className="w-6 h-6" />
                     )}
                     <span>{user.name}</span>
                   </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-lg py-1 hidden group-hover:block z-50 border dark:border-slate-700">
-                    <Link to="/profile" className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700">Profile</Link>
-                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-red-500 hover:bg-slate-100 dark:hover:bg-slate-700">Logout</button>
-                  </div>
+                  {isProfileMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-lg py-1 z-50 border dark:border-slate-700">
+                      <Link to="/profile" onClick={() => setIsProfileMenuOpen(false)} className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700">Profile</Link>
+                      <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-red-500 hover:bg-slate-100 dark:hover:bg-slate-700">Logout</button>
+                    </div>
+                  )}
                 </div>
               </>
             ) : (
