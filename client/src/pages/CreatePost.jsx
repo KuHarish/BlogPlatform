@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { toast } from 'react-toastify';
@@ -6,15 +6,20 @@ import api from '../services/api';
 import AuthContext from '../context/AuthContext';
 
 const CreatePost = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading: authLoading } = useContext(AuthContext);
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  if (!user) {
-    navigate('/login');
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/login');
+    }
+  }, [user, authLoading, navigate]);
+
+  if (authLoading || !user) {
     return null;
   }
 
