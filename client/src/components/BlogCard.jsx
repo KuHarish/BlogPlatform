@@ -11,7 +11,7 @@ const BlogCard = ({ post }) => {
           <span className="text-slate-400">No Image</span>
         </div>
       )}
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-6 flex flex-col grow">
         <h3 className="text-xl font-bold mb-2 line-clamp-2 text-slate-900 dark:text-white">
           <Link to={`/post/${post._id}`} className="hover:text-primary transition-colors">
             {post.title}
@@ -22,7 +22,7 @@ const BlogCard = ({ post }) => {
           <span className="mx-2">•</span>
           <span>{format(new Date(post.createdAt), 'MMM d, yyyy')}</span>
         </div>
-        <p className="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3 flex-grow" dangerouslySetInnerHTML={{ __html: post.content }}></p>
+        <p className="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3 grow" dangerouslySetInnerHTML={{ __html: post.content }}></p>
         <div className="mt-auto">
           <Link to={`/post/${post._id}`} className="text-primary font-medium hover:underline inline-flex items-center">
             Read More
